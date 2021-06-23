@@ -7,7 +7,7 @@ import os
 from multiprocessing import Pool
 from tqdm import tqdm
 
-in_dir = 'crawl_data/data/'
+in_dir = 'crawl_data/shs_data/'
 out_dir = 'youtube_cqt_npy/'
 
 
@@ -27,7 +27,7 @@ def CQT(args):
         #print(new_cens.shape)
     except :
         print('wa', in_path)
-
+# CQT FUNC看起来是down sampling
         
 params =[]
 for ii, (root, dirs, files) in tqdm(enumerate(os.walk(in_dir))):  
@@ -40,7 +40,7 @@ for ii, (root, dirs, files) in tqdm(enumerate(os.walk(in_dir))):
             params.append((in_path, out_path))
 
 print('begin')
-pool = Pool(40)
+pool = Pool(4) # 40核机器
 pool.map(CQT, params)
 pool.close()
 pool.join()
